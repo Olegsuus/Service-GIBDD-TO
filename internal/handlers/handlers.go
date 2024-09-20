@@ -1,6 +1,12 @@
-package app
+package handlers
 
-//func (a *App) HandleGetAutomobileById(c echo.Context) error {
+import "github.com/labstack/echo/v4"
+
+type Handlers interface {
+	RegisterRoutes(e *echo.Echo)
+}
+
+//func (a *app.App.DB) HandleGetAutomobileById(c echo.Context) error {
 //	strId := c.QueryParam("id")
 //	id, err := strconv.Atoi(strId)
 //	if err != nil {
@@ -37,4 +43,18 @@ package app
 //	}
 //
 //	return c.JSON(http.StatusOK, automobile)
+//}
+//
+//func (a *App) HandleAddNewAutomobile(c echo.Context) error {
+//	var automobile *models.Automobile
+//	if err := c.Bind(&automobile); err != nil {
+//		return c.JSON(http.StatusBadRequest, map[string]string{"error": err.Error()})
+//	}
+//
+//	err := a.DB.AddNewAutomobile(automobile)
+//	if err != nil {
+//		return c.JSON(http.StatusInternalServerError, map[string]string{"error": err.Error()})
+//	}
+//
+//	return c.JSON(http.StatusCreated, automobile)
 //}
