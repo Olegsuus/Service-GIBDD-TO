@@ -1,6 +1,7 @@
 package app
 
 import (
+	"Web-App/internal/models"
 	"fmt"
 	"log"
 
@@ -19,9 +20,10 @@ type App struct {
 type Storage interface {
 	GetStorage(cfg *config.Config)
 	Stop() error
-	//GetAutomobileById(id int) (*models.Automobile, error)
-	//GetInspectionsById(id int) (*models.Inspection, error)
-	//GetAllAutomobiles() ([]models.Automobile, error)
+	GetAutomobileById(id int) (*models.Automobile, error)
+	GetInspectionsById(id int) (*models.Inspection, error)
+	GetAllAutomobiles() ([]models.Automobile, error)
+	AddNewAutomobile(automobile *models.Automobile) error
 }
 
 func (a *App) Start() error {
