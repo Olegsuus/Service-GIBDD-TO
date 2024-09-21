@@ -1,15 +1,25 @@
-package Inspection
+package storage_inspection
 
 import (
-	"Web-App/internal/models"
+	storage_models "Web-App/internal/storage/models"
+	"database/sql"
+	"fmt"
 )
 
-func (s *InspectionStorage) GetInsp(id int) (*models.Inspection, error) {
-	var inspection models.Inspection
+func (s *InspectionStorage) Get(id int) (*storage_models.Inspection, error) {
+	const op = "storage_inspection.get"
+
 	query := `SELECT id, automobile_id, card_number, inspection_date, notes FROM inspections WHERE id = $1`
-	err := s.DB.QueryRow(query, id).Scan(&inspection.ID, &inspection.AutomobileID, &inspection.CardNumber, &inspection.InspectionDate, &inspection.Notes)
-	if err != nil {
+
+	row := s.DB.QueryRow(query, id)
+	var inspection storage_models.Inspection
+	if err := row.Scan(&inspection.ID, &inspection.AutomobileID, &inspection.CardNumber,
+		&inspection.InspectionDate, &inspection.Notes); err != nil {
+		if err == sql.ErrNoRows {
+			return nil, fmt.Errorf("%s: %w", op, err)
+		}
 		return nil, err
 	}
+
 	return &inspection, nil
 }

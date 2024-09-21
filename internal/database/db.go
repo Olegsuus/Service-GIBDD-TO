@@ -1,7 +1,6 @@
-package db
+package database
 
 import (
-	"Web-App/internal/storage"
 	"fmt"
 	"log"
 
@@ -11,8 +10,7 @@ import (
 )
 
 type DataBase struct {
-	DB      *sql.DB
-	Storage storage.Storage
+	DB *sql.DB
 }
 
 func (db *DataBase) GetStorage(cfg *config.Config) {

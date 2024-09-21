@@ -4,29 +4,33 @@ import (
 	"Web-App/internal/app"
 	"Web-App/internal/config"
 	"Web-App/internal/database"
-	migration "Web-App/internal/migrations"
+	"Web-App/internal/migrations"
+	"Web-App/internal/storage"
 	"log"
+	"log/slog"
+	"os"
 )
 
 func main() {
 	cfg := config.GetConfig()
-	db := database.DataBase{}
+
+	logger := slog.New(slog.NewTextHandler(os.Stdout, nil))
+
+	db := &database.DataBase{}
 	db.GetStorage(cfg)
-	migration.Migrations(cfg, db.DB)
+	defer func() {
+		if err := db.Stop(); err != nil {
+			logger.Error("Failed to close database", "error", err)
+		}
+	}()
 
-	App := app.App{Config: cfg, DB: &db}
+	migrations.Migrations(cfg, db.DB)
 
-	srv := &app.Server{}
-	App.ServerInterface = srv
+	store := storage.NewStorage(db.DB)
 
-	if err := App.Start(); err != nil {
-		log.Fatalf("Failed to start server: %s", err)
+	App := app.NewApp(cfg, store, logger)
+
+	if err := App.Start(store); err != nil {
+		log.Fatal("Failed to start server:", err)
 	}
-
-	//todo: task-7 написать обработку запросов через storage функции
-
-	//todo: task-8 написать маршруты в handlers по методам storage
-
-	//todo: task-9 написать роуты
-
 }
