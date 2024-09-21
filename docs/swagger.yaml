@@ -1,0 +1,194 @@
+basePath: /
+definitions:
+  models.Automobile:
+    properties:
+      id:
+        type: integer
+      license_plate:
+        type: string
+      model:
+        type: string
+      registration_date:
+        type: string
+      release_date:
+        type: string
+    type: object
+host: localhost:8001
+info:
+  contact:
+    email: support@example.com
+    name: API Support
+    url: http://www.example.com/support
+  description: API для управления автопарком.
+  title: Web-App API
+  version: "1.0"
+paths:
+  /car:
+    get:
+      consumes:
+      - application/json
+      description: Добавляет новый автомобиль
+      parameters:
+      - description: Данные авто
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/models.Automobile'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "500":
+          description: Ошибка на сервере
+      summary: Добавить новый автомобиль
+      tags:
+      - автомобиль
+  /car/:id:
+    delete:
+      consumes:
+      - application/json
+      description: Удаляет  автомобиль
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "500":
+          description: Ошибка на сервере
+      summary: Удалить автомобиль
+      tags:
+      - автомобиль
+    get:
+      consumes:
+      - application/json
+      description: Возвращает  автомобиль
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "500":
+          description: Ошибка на сервере
+      summary: Получить автомобиль по id
+      tags:
+      - автомобиль
+    patch:
+      consumes:
+      - application/json
+      description: Обновляет  автомобиль
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "500":
+          description: Ошибка на сервере
+      summary: Обновить автомобиль
+      tags:
+      - автомобиль
+  /cars:
+    get:
+      consumes:
+      - application/json
+      description: Возвращает  список автомобилей
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "500":
+          description: Ошибка на сервере
+      summary: Получить список автомобилей
+      tags:
+      - автомобиль
+  /inspection:
+    post:
+      consumes:
+      - application/json
+      description: Добавляет тех осмотр
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "500":
+          description: Ошибка на сервере
+      summary: Добавить тех осмотр
+      tags:
+      - тех осмотр
+  /inspection/:id:
+    delete:
+      consumes:
+      - application/json
+      description: Удаляет тех осмотр
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "500":
+          description: Ошибка на сервере
+      summary: Удалить тех осмотр по id
+      tags:
+      - тех осмотр
+    get:
+      consumes:
+      - application/json
+      description: Возвращает тех осмотр
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "500":
+          description: Ошибка на сервере
+      summary: Получить тех осмотр по id
+      tags:
+      - тех осмотр
+    patch:
+      consumes:
+      - application/json
+      description: Обновляет  данные тех осмотра
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "500":
+          description: Ошибка на сервере
+      summary: Обновить данные о тех осмотре
+      tags:
+      - тех осмотр
+  /inspections:
+    get:
+      consumes:
+      - application/json
+      description: Возвращает список тех осмотров
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "500":
+          description: Ошибка на сервере
+      summary: Получить список тех осмотров
+      tags:
+      - тех осмотр
+  /report:
+    get:
+      consumes:
+      - application/json
+      description: Возвращает агрегированные данные по автомобилям
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "500":
+          description: Ошибка на сервере
+      summary: Получить отчёт по автомобилям
+      tags:
+      - автомобиль
+swagger: "2.0"
