@@ -1,7 +1,26 @@
-package automobile
+package storage_automobile
 
-func (s *AutomobileStorage) DeleteAuto(id int) error {
+import (
+	"fmt"
+)
+
+func (s *AutomobileStorage) Delete(id int) error {
+	const op = "storage_automobile.delete"
+
 	query := `DELETE FROM automobiles WHERE id = $1`
-	_, err := s.DB.Exec(query, id)
-	return err
+	result, err := s.DB.Exec(query, id)
+	if err != nil {
+		return fmt.Errorf("%s: %w", op, err)
+	}
+
+	rowsAffected, err := result.RowsAffected()
+	if err != nil {
+		return fmt.Errorf("failed to get rows affected: %w", err)
+	}
+
+	if rowsAffected == 0 {
+		return fmt.Errorf("Ни один автомобиль не найден с таким id: %d", id)
+	}
+
+	return nil
 }
