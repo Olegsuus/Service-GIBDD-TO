@@ -1,8 +1,8 @@
 package service_automobile
 
 import (
-	"Web-App/internal/models"
 	"fmt"
+	"github.com/Olegsuus/TZ-WEB-App/internal/models"
 	"log/slog"
 )
 

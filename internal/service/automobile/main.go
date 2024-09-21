@@ -1,7 +1,7 @@
 package service_automobile
 
 import (
-	storage_models "Web-App/internal/storage/models"
+	storage_models "github.com/Olegsuus/TZ-WEB-App/internal/storage/models"
 	"log/slog"
 )
 
@@ -16,6 +16,7 @@ type AutomobileProvider interface {
 	Add(automobile storage_models.Automobile) error
 	Update(automobile *storage_models.Automobile) error
 	Delete(id int) error
+	GetReport() (*storage_models.Report, error)
 }
 
 func NewAutomobileService(auP AutomobileProvider, l *slog.Logger) *AutomobileService {

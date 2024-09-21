@@ -1,13 +1,23 @@
 package handler_automobile
 
 import (
-	handlers "Web-App/internal/handlers/errors"
-	"Web-App/internal/models"
 	"fmt"
+	handlers "github.com/Olegsuus/TZ-WEB-App/internal/handlers/errors"
+	"github.com/Olegsuus/TZ-WEB-App/internal/models"
 	"github.com/labstack/echo/v4"
 	"net/http"
 )
 
+// Add Обработчик для добавления автомобиля
+// @Summary Добавить новый автомобиль
+// @Description Добавляет новый автомобиль
+// @Param automobile body models.Automobile true "Автомобиль"
+// @Tags автомобиль
+// @Accept  json
+// @Produce  json
+// @Success 200  "OK"
+// @Failure 500  "Ошибка на сервере"
+// @Router /car [get]
 func (h *AutomobileHandlers) Add(c echo.Context) error {
 	var automobile models.Automobile
 

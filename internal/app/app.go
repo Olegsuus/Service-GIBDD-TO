@@ -1,16 +1,17 @@
 package app
 
 import (
-	"Web-App/internal/config"
-	handler_automobile "Web-App/internal/handlers/automobile"
-	"Web-App/internal/handlers/handler"
-	handler_inspection "Web-App/internal/handlers/inspection"
-	service_automobile "Web-App/internal/service/automobile"
-	service_inspection "Web-App/internal/service/inspection"
-	"Web-App/internal/storage"
 	"fmt"
+	"github.com/Olegsuus/TZ-WEB-App/internal/config"
+	handler_automobile "github.com/Olegsuus/TZ-WEB-App/internal/handlers/automobile"
+	"github.com/Olegsuus/TZ-WEB-App/internal/handlers/handler"
+	handler_inspection "github.com/Olegsuus/TZ-WEB-App/internal/handlers/inspection"
+	service_automobile "github.com/Olegsuus/TZ-WEB-App/internal/service/automobile"
+	service_inspection "github.com/Olegsuus/TZ-WEB-App/internal/service/inspection"
+	"github.com/Olegsuus/TZ-WEB-App/internal/storage"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
+	echoSwagger "github.com/swaggo/echo-swagger"
 	"log/slog"
 )
 
@@ -48,6 +49,8 @@ func (a *App) Start(store *storage.Storage) error {
 
 	a.Handlers.RegisterRoutes(a.Echo)
 
+	a.registerSwaggerRoutes()
+
 	addr := fmt.Sprintf(":%d", a.Config.Server.Port)
 	a.Logger.Info("Starting server", "address", addr)
 
@@ -55,6 +58,9 @@ func (a *App) Start(store *storage.Storage) error {
 }
 
 func (a *App) Stop() error {
-	//todo реализовать логику закрытия приложения, например, закрытие бд
 	return nil
+}
+
+func (a *App) registerSwaggerRoutes() {
+	a.Echo.GET("/swagger/*", echoSwagger.WrapHandler)
 }

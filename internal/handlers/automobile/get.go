@@ -1,12 +1,21 @@
 package handler_automobile
 
 import (
-	handlers "Web-App/internal/handlers/errors"
+	handlers "github.com/Olegsuus/TZ-WEB-App/internal/handlers/errors"
 	"github.com/labstack/echo/v4"
 	"net/http"
 	"strconv"
 )
 
+// Get Обработчик для получения автомобиля
+// @Summary Получить автомобиль по id
+// @Description Возвращает  автомобиль
+// @Tags автомобиль
+// @Accept  json
+// @Produce  json
+// @Success 200  "OK"
+// @Failure 500  "Ошибка на сервере"
+// @Router /car/:id [get]
 func (h *AutomobileHandlers) Get(c echo.Context) error {
 	strId := c.Param("id")
 

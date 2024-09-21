@@ -1,8 +1,8 @@
 package service_inspection
 
 import (
-	"Web-App/internal/models"
-	storage_models "Web-App/internal/storage/models"
+	"github.com/Olegsuus/TZ-WEB-App/internal/models"
+	storage_models "github.com/Olegsuus/TZ-WEB-App/internal/storage/models"
 )
 
 func (s *InspectionService) TranslatorToModels(inspectionStorage *storage_models.Inspection) (*models.Inspection, error) {

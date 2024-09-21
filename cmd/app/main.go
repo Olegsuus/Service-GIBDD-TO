@@ -1,16 +1,27 @@
 package main
 
 import (
-	"Web-App/internal/app"
-	"Web-App/internal/config"
-	"Web-App/internal/database"
-	"Web-App/internal/migrations"
-	"Web-App/internal/storage"
+	_ "github.com/Olegsuus/TZ-WEB-App/docs"
+	"github.com/Olegsuus/TZ-WEB-App/internal/app"
+	"github.com/Olegsuus/TZ-WEB-App/internal/config"
+	"github.com/Olegsuus/TZ-WEB-App/internal/database"
+	"github.com/Olegsuus/TZ-WEB-App/internal/migrations"
+	"github.com/Olegsuus/TZ-WEB-App/internal/storage"
 	"log"
 	"log/slog"
 	"os"
 )
 
+// @title Web-App API
+// @version 1.0
+// @description API для управления автопарком.
+
+// @contact.name API Support
+// @contact.url http://www.example.com/support
+// @contact.email support@example.com
+
+// @host localhost:8001
+// @BasePath /
 func main() {
 	cfg := config.GetConfig()
 

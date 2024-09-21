@@ -1,8 +1,8 @@
 package handler
 
 import (
-	handler_automobile "Web-App/internal/handlers/automobile"
-	handler_inspection "Web-App/internal/handlers/inspection"
+	handler_automobile "github.com/Olegsuus/TZ-WEB-App/internal/handlers/automobile"
+	handler_inspection "github.com/Olegsuus/TZ-WEB-App/internal/handlers/inspection"
 )
 
 type Handler struct {
