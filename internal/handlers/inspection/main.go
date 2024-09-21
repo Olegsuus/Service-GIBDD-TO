@@ -1,7 +1,7 @@
 package handler_inspection
 
 import (
-	"Web-App/internal/models"
+	"github.com/Olegsuus/TZ-WEB-App/internal/models"
 )
 
 type InspectionHandler struct {

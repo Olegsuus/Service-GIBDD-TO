@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"log"
 
-	"Web-App/internal/config"
 	"database/sql"
+	"github.com/Olegsuus/TZ-WEB-App/internal/config"
 	_ "github.com/lib/pq"
 )
 

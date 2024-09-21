@@ -8,6 +8,7 @@ func (h *Handler) RegisterRoutes(e *echo.Echo) {
 	e.POST("/car", h.AutomobileHandler.Add)
 	e.PATCH("/car/:id", h.AutomobileHandler.Update)
 	e.DELETE("/car/:id", h.AutomobileHandler.Delete)
+	e.GET("/report", h.AutomobileHandler.GetReport)
 
 	e.GET("/inspections", h.InspectionHandler.GetAll)
 	e.GET("/inspection/:id", h.InspectionHandler.Get)

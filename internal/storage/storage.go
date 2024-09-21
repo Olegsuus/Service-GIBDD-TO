@@ -1,9 +1,9 @@
 package storage
 
 import (
-	storage_inspection "Web-App/internal/storage/Inspection"
-	storage_automobile "Web-App/internal/storage/automobile"
 	"database/sql"
+	storage_inspection "github.com/Olegsuus/TZ-WEB-App/internal/storage/Inspection"
+	storage_automobile "github.com/Olegsuus/TZ-WEB-App/internal/storage/automobile"
 )
 
 type Storage struct {

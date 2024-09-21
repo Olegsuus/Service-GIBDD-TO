@@ -1,12 +1,21 @@
 package handler_inspection
 
 import (
-	handlers "Web-App/internal/handlers/errors"
+	handlers "github.com/Olegsuus/TZ-WEB-App/internal/handlers/errors"
 	"github.com/labstack/echo/v4"
 	"net/http"
 	"strconv"
 )
 
+// Get Обработчик для получения тех осмотра по id
+// @Summary Получить тех осмотр по id
+// @Description Возвращает тех осмотр
+// @Tags тех осмотр
+// @Accept  json
+// @Produce  json
+// @Success 200  "OK"
+// @Failure 500  "Ошибка на сервере"
+// @Router /inspection/:id [get]
 func (h *InspectionHandler) Get(c echo.Context) error {
 	strId := c.Param("id")
 

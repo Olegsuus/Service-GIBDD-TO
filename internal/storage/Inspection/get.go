@@ -1,9 +1,9 @@
 package storage_inspection
 
 import (
-	storage_models "Web-App/internal/storage/models"
 	"database/sql"
 	"fmt"
+	storage_models "github.com/Olegsuus/TZ-WEB-App/internal/storage/models"
 )
 
 func (s *InspectionStorage) Get(id int) (*storage_models.Inspection, error) {

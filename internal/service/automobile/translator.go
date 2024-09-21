@@ -1,8 +1,8 @@
 package service_automobile
 
 import (
-	"Web-App/internal/models"
-	storage_models "Web-App/internal/storage/models"
+	"github.com/Olegsuus/TZ-WEB-App/internal/models"
+	storage_models "github.com/Olegsuus/TZ-WEB-App/internal/storage/models"
 )
 
 func (s *AutomobileService) TranslatorToModels(automobileStorage *storage_models.Automobile) (*models.Automobile, error) {

@@ -1,7 +1,7 @@
 package handlers
 
 import (
-	"Web-App/internal/errors"
+	"github.com/Olegsuus/TZ-WEB-App/internal/errors"
 	"github.com/labstack/echo/v4"
 )
 

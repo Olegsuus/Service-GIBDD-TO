@@ -1,7 +1,7 @@
 package handler_automobile
 
 import (
-	"Web-App/internal/models"
+	"github.com/Olegsuus/TZ-WEB-App/internal/models"
 )
 
 type AutomobileHandlers struct {
@@ -14,6 +14,7 @@ type AutomobileHandlerProvider interface {
 	Add(automobile *models.Automobile) error
 	Update(automobile *models.Automobile) error
 	Delete(id int) error
+	GetReport() (*models.Report, error)
 }
 
 func NewAutomobileHandler(service AutomobileHandlerProvider) *AutomobileHandlers {

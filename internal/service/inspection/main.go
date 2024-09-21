@@ -1,7 +1,7 @@
 package service_inspection
 
 import (
-	storage_models "Web-App/internal/storage/models"
+	storage_models "github.com/Olegsuus/TZ-WEB-App/internal/storage/models"
 	"log/slog"
 )
 
