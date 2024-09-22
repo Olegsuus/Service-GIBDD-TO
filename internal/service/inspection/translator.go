@@ -10,7 +10,7 @@ func (s *InspectionService) TranslatorToModels(inspectionStorage *storage_models
 		ID:             inspectionStorage.ID,
 		AutomobileID:   inspectionStorage.AutomobileID,
 		CardNumber:     inspectionStorage.CardNumber,
-		InspectionDate: inspectionStorage.InspectionDate,
+		InspectionDate: models.CustomDate{Time: inspectionStorage.InspectionDate},
 		Notes:          inspectionStorage.Notes,
 	}, nil
 }
@@ -20,7 +20,7 @@ func (s *InspectionService) TranslatorToStorage(inspectionModels *models.Inspect
 		ID:             inspectionModels.ID,
 		AutomobileID:   inspectionModels.AutomobileID,
 		CardNumber:     inspectionModels.CardNumber,
-		InspectionDate: inspectionModels.InspectionDate,
+		InspectionDate: inspectionModels.InspectionDate.Time,
 		Notes:          inspectionModels.Notes,
 	}, nil
 }

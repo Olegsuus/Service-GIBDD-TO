@@ -13,19 +13,36 @@ import (
 // @Tags тех осмотр
 // @Accept  json
 // @Produce  json
-// @Success 200  "OK"
+// @Param inspection body models.AddInspectionDTO true "Техосмотр"
+// @Success 200   "OK"
+// @Failure 400  "Неверные данные запроса"
 // @Failure 500  "Ошибка на сервере"
 // @Router /inspection [post]
 func (h *InspectionHandler) Add(c echo.Context) error {
-	var inspection models.Inspection
+	var dto models.AddInspectionDTO
 
-	if err := c.Bind(&inspection); err != nil {
+	if err := c.Bind(&dto); err != nil {
 		return handlers.ErrorsHandler(c, err, http.StatusBadRequest, "Неверный формат данных на добавление тех. осмотра")
+	}
+
+	if err := c.Validate(&dto); err != nil {
+		return handlers.ErrorsHandler(c, err, http.StatusBadRequest, "Валидация не пройдена")
+	}
+
+	inspection := models.Inspection{
+		AutomobileID:   dto.AutomobileID,
+		CardNumber:     dto.CardNumber,
+		InspectionDate: dto.InspectionDate,
+		Notes:          dto.Notes,
 	}
 
 	if err := h.Service.Add(&inspection); err != nil {
 		return handlers.ErrorsHandler(c, err, http.StatusInternalServerError, "Ошибка при добавлении нового тех. осмотра")
 	}
 
-	return c.JSON(http.StatusCreated, inspection)
+	response := models.AddRes{
+		ID: inspection.ID,
+	}
+
+	return c.JSON(http.StatusCreated, response)
 }

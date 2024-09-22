@@ -2,6 +2,7 @@ package handler_inspection
 
 import (
 	handlers "github.com/Olegsuus/TZ-WEB-App/internal/handlers/errors"
+	"github.com/Olegsuus/TZ-WEB-App/internal/models"
 	"github.com/labstack/echo/v4"
 	"net/http"
 	"strconv"
@@ -13,7 +14,10 @@ import (
 // @Tags тех осмотр
 // @Accept  json
 // @Produce  json
+// @Param id path int true "ID тех осмотра"
+// @Param automobile body models.Inspection true "Удаление тех осмотра"
 // @Success 200  "OK"
+// @Failure 400  "Неверные данные запроса"
 // @Failure 500  "Ошибка на сервере"
 // @Router /inspection/:id [delete]
 func (h *InspectionHandler) Delete(c echo.Context) error {
@@ -28,5 +32,7 @@ func (h *InspectionHandler) Delete(c echo.Context) error {
 		return handlers.ErrorsHandler(c, err, http.StatusInternalServerError, "Ошибка при удалении тех. осмотра")
 	}
 
-	return c.NoContent(http.StatusNoContent)
+	response := models.DeleteRes{Success: true}
+
+	return c.JSON(http.StatusOK, response)
 }

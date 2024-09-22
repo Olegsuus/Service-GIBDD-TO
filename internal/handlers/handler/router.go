@@ -3,6 +3,8 @@ package handler
 import "github.com/labstack/echo/v4"
 
 func (h *Handler) RegisterRoutes(e *echo.Echo) {
+	e.Static("/", "frontend")
+
 	e.GET("/cars", h.AutomobileHandler.GetAll)
 	e.GET("/car/:id", h.AutomobileHandler.Get)
 	e.POST("/car", h.AutomobileHandler.Add)

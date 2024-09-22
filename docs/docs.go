@@ -20,7 +20,7 @@ const docTemplate = `{
     "basePath": "{{.BasePath}}",
     "paths": {
         "/car": {
-            "get": {
+            "post": {
                 "description": "Добавляет новый автомобиль",
                 "consumes": [
                     "application/json"
@@ -34,18 +34,21 @@ const docTemplate = `{
                 "summary": "Добавить новый автомобиль",
                 "parameters": [
                     {
-                        "description": "Данные авто",
-                        "name": "body",
+                        "description": "Автомобиль",
+                        "name": "automobile",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/models.Automobile"
+                            "$ref": "#/definitions/models.AddAutomobileDTO"
                         }
                     }
                 ],
                 "responses": {
                     "200": {
                         "description": "OK"
+                    },
+                    "400": {
+                        "description": "Неверные данные запроса"
                     },
                     "500": {
                         "description": "Ошибка на сервере"
@@ -66,9 +69,30 @@ const docTemplate = `{
                     "автомобиль"
                 ],
                 "summary": "Получить автомобиль по id",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "ID автомобиля",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Получение автомобиля по id",
+                        "name": "automobile",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.Automobile"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK"
+                    },
+                    "400": {
+                        "description": "Неверные данные запроса"
                     },
                     "500": {
                         "description": "Ошибка на сервере"
@@ -87,9 +111,30 @@ const docTemplate = `{
                     "автомобиль"
                 ],
                 "summary": "Удалить автомобиль",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "ID автомобиля",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Удаление автомобиля",
+                        "name": "automobile",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.Automobile"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK"
+                    },
+                    "400": {
+                        "description": "Неверные данные запроса"
                     },
                     "500": {
                         "description": "Ошибка на сервере"
@@ -108,9 +153,30 @@ const docTemplate = `{
                     "автомобиль"
                 ],
                 "summary": "Обновить автомобиль",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "ID автомобиля",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Обновленные данные автомобиля",
+                        "name": "automobile",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.Automobile"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK"
+                    },
+                    "400": {
+                        "description": "Неверные данные запроса"
                     },
                     "500": {
                         "description": "Ошибка на сервере"
@@ -154,9 +220,23 @@ const docTemplate = `{
                     "тех осмотр"
                 ],
                 "summary": "Добавить тех осмотр",
+                "parameters": [
+                    {
+                        "description": "Техосмотр",
+                        "name": "inspection",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.AddInspectionDTO"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK"
+                    },
+                    "400": {
+                        "description": "Неверные данные запроса"
                     },
                     "500": {
                         "description": "Ошибка на сервере"
@@ -177,9 +257,30 @@ const docTemplate = `{
                     "тех осмотр"
                 ],
                 "summary": "Получить тех осмотр по id",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "ID тех осмотра",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Получение тех осмотра по id",
+                        "name": "automobile",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.Inspection"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK"
+                    },
+                    "400": {
+                        "description": "Неверные данные запроса"
                     },
                     "500": {
                         "description": "Ошибка на сервере"
@@ -198,9 +299,30 @@ const docTemplate = `{
                     "тех осмотр"
                 ],
                 "summary": "Удалить тех осмотр по id",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "ID тех осмотра",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Удаление тех осмотра",
+                        "name": "automobile",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.Inspection"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK"
+                    },
+                    "400": {
+                        "description": "Неверные данные запроса"
                     },
                     "500": {
                         "description": "Ошибка на сервере"
@@ -219,9 +341,30 @@ const docTemplate = `{
                     "тех осмотр"
                 ],
                 "summary": "Обновить данные о тех осмотре",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "ID техосмотра",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Обновленные данные техосмотра",
+                        "name": "inspection",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.UpdateInspectionDTO"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
-                        "description": "OK"
+                        "description": "Успешно"
+                    },
+                    "400": {
+                        "description": "Неверные данные запроса"
                     },
                     "500": {
                         "description": "Ошибка на сервере"
@@ -277,22 +420,142 @@ const docTemplate = `{
         }
     },
     "definitions": {
+        "models.AddAutomobileDTO": {
+            "type": "object",
+            "required": [
+                "license_plate",
+                "model",
+                "registration_date",
+                "release_date"
+            ],
+            "properties": {
+                "license_plate": {
+                    "type": "string",
+                    "maxLength": 10,
+                    "minLength": 5
+                },
+                "model": {
+                    "type": "string",
+                    "maxLength": 100,
+                    "minLength": 2
+                },
+                "registration_date": {
+                    "$ref": "#/definitions/models.CustomDate"
+                },
+                "release_date": {
+                    "$ref": "#/definitions/models.CustomDate"
+                }
+            }
+        },
+        "models.AddInspectionDTO": {
+            "type": "object",
+            "required": [
+                "automobile_id",
+                "card_number",
+                "inspection_date"
+            ],
+            "properties": {
+                "automobile_id": {
+                    "type": "integer"
+                },
+                "card_number": {
+                    "type": "string",
+                    "maxLength": 20,
+                    "minLength": 5
+                },
+                "inspection_date": {
+                    "$ref": "#/definitions/models.CustomDate"
+                },
+                "notes": {
+                    "type": "string"
+                }
+            }
+        },
         "models.Automobile": {
             "type": "object",
+            "required": [
+                "license_plate",
+                "model",
+                "registration_date",
+                "release_date"
+            ],
             "properties": {
                 "id": {
                     "type": "integer"
                 },
                 "license_plate": {
-                    "type": "string"
+                    "type": "string",
+                    "maxLength": 10,
+                    "minLength": 5
                 },
                 "model": {
-                    "type": "string"
+                    "type": "string",
+                    "maxLength": 100,
+                    "minLength": 2
                 },
                 "registration_date": {
-                    "type": "string"
+                    "$ref": "#/definitions/models.CustomDate"
                 },
                 "release_date": {
+                    "$ref": "#/definitions/models.CustomDate"
+                }
+            }
+        },
+        "models.CustomDate": {
+            "type": "object",
+            "properties": {
+                "time.Time": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.Inspection": {
+            "type": "object",
+            "required": [
+                "automobile_id",
+                "card_number",
+                "inspection_date"
+            ],
+            "properties": {
+                "automobile_id": {
+                    "type": "integer"
+                },
+                "card_number": {
+                    "type": "string",
+                    "maxLength": 20,
+                    "minLength": 5
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "inspection_date": {
+                    "$ref": "#/definitions/models.CustomDate"
+                },
+                "notes": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.UpdateInspectionDTO": {
+            "type": "object",
+            "required": [
+                "automobile_id",
+                "card_number",
+                "inspection_date"
+            ],
+            "properties": {
+                "automobile_id": {
+                    "type": "integer"
+                },
+                "card_number": {
+                    "type": "string",
+                    "maxLength": 20,
+                    "minLength": 5
+                },
+                "inspection_date": {
+                    "$ref": "#/definitions/models.CustomDate"
+                },
+                "notes": {
                     "type": "string"
                 }
             }
@@ -310,6 +573,8 @@ var SwaggerInfo = &swag.Spec{
 	Description:      "API для управления автопарком.",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,
+	//	LeftDelim:        "{{",
+	//	RightDelim:       "}}",
 }
 
 func init() {

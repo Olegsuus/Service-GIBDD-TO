@@ -1,17 +1,104 @@
 basePath: /
 definitions:
+  models.AddAutomobileDTO:
+    properties:
+      license_plate:
+        maxLength: 10
+        minLength: 5
+        type: string
+      model:
+        maxLength: 100
+        minLength: 2
+        type: string
+      registration_date:
+        $ref: '#/definitions/models.CustomDate'
+      release_date:
+        $ref: '#/definitions/models.CustomDate'
+    required:
+    - license_plate
+    - model
+    - registration_date
+    - release_date
+    type: object
+  models.AddInspectionDTO:
+    properties:
+      automobile_id:
+        type: integer
+      card_number:
+        maxLength: 20
+        minLength: 5
+        type: string
+      inspection_date:
+        $ref: '#/definitions/models.CustomDate'
+      notes:
+        type: string
+    required:
+    - automobile_id
+    - card_number
+    - inspection_date
+    type: object
   models.Automobile:
     properties:
       id:
         type: integer
       license_plate:
+        maxLength: 10
+        minLength: 5
         type: string
       model:
+        maxLength: 100
+        minLength: 2
         type: string
       registration_date:
-        type: string
+        $ref: '#/definitions/models.CustomDate'
       release_date:
+        $ref: '#/definitions/models.CustomDate'
+    required:
+    - license_plate
+    - model
+    - registration_date
+    - release_date
+    type: object
+  models.CustomDate:
+    properties:
+      time.Time:
         type: string
+    type: object
+  models.Inspection:
+    properties:
+      automobile_id:
+        type: integer
+      card_number:
+        maxLength: 20
+        minLength: 5
+        type: string
+      id:
+        type: integer
+      inspection_date:
+        $ref: '#/definitions/models.CustomDate'
+      notes:
+        type: string
+    required:
+    - automobile_id
+    - card_number
+    - inspection_date
+    type: object
+  models.UpdateInspectionDTO:
+    properties:
+      automobile_id:
+        type: integer
+      card_number:
+        maxLength: 20
+        minLength: 5
+        type: string
+      inspection_date:
+        $ref: '#/definitions/models.CustomDate'
+      notes:
+        type: string
+    required:
+    - automobile_id
+    - card_number
+    - inspection_date
     type: object
 host: localhost:8001
 info:
@@ -24,22 +111,24 @@ info:
   version: "1.0"
 paths:
   /car:
-    get:
+    post:
       consumes:
       - application/json
       description: Добавляет новый автомобиль
       parameters:
-      - description: Данные авто
+      - description: Автомобиль
         in: body
-        name: body
+        name: automobile
         required: true
         schema:
-          $ref: '#/definitions/models.Automobile'
+          $ref: '#/definitions/models.AddAutomobileDTO'
       produces:
       - application/json
       responses:
         "200":
           description: OK
+        "400":
+          description: Неверные данные запроса
         "500":
           description: Ошибка на сервере
       summary: Добавить новый автомобиль
@@ -50,11 +139,25 @@ paths:
       consumes:
       - application/json
       description: Удаляет  автомобиль
+      parameters:
+      - description: ID автомобиля
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Удаление автомобиля
+        in: body
+        name: automobile
+        required: true
+        schema:
+          $ref: '#/definitions/models.Automobile'
       produces:
       - application/json
       responses:
         "200":
           description: OK
+        "400":
+          description: Неверные данные запроса
         "500":
           description: Ошибка на сервере
       summary: Удалить автомобиль
@@ -64,11 +167,25 @@ paths:
       consumes:
       - application/json
       description: Возвращает  автомобиль
+      parameters:
+      - description: ID автомобиля
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Получение автомобиля по id
+        in: body
+        name: automobile
+        required: true
+        schema:
+          $ref: '#/definitions/models.Automobile'
       produces:
       - application/json
       responses:
         "200":
           description: OK
+        "400":
+          description: Неверные данные запроса
         "500":
           description: Ошибка на сервере
       summary: Получить автомобиль по id
@@ -78,11 +195,25 @@ paths:
       consumes:
       - application/json
       description: Обновляет  автомобиль
+      parameters:
+      - description: ID автомобиля
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Обновленные данные автомобиля
+        in: body
+        name: automobile
+        required: true
+        schema:
+          $ref: '#/definitions/models.Automobile'
       produces:
       - application/json
       responses:
         "200":
           description: OK
+        "400":
+          description: Неверные данные запроса
         "500":
           description: Ошибка на сервере
       summary: Обновить автомобиль
@@ -108,11 +239,20 @@ paths:
       consumes:
       - application/json
       description: Добавляет тех осмотр
+      parameters:
+      - description: Техосмотр
+        in: body
+        name: inspection
+        required: true
+        schema:
+          $ref: '#/definitions/models.AddInspectionDTO'
       produces:
       - application/json
       responses:
         "200":
           description: OK
+        "400":
+          description: Неверные данные запроса
         "500":
           description: Ошибка на сервере
       summary: Добавить тех осмотр
@@ -123,11 +263,25 @@ paths:
       consumes:
       - application/json
       description: Удаляет тех осмотр
+      parameters:
+      - description: ID тех осмотра
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Удаление тех осмотра
+        in: body
+        name: automobile
+        required: true
+        schema:
+          $ref: '#/definitions/models.Inspection'
       produces:
       - application/json
       responses:
         "200":
           description: OK
+        "400":
+          description: Неверные данные запроса
         "500":
           description: Ошибка на сервере
       summary: Удалить тех осмотр по id
@@ -137,11 +291,25 @@ paths:
       consumes:
       - application/json
       description: Возвращает тех осмотр
+      parameters:
+      - description: ID тех осмотра
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Получение тех осмотра по id
+        in: body
+        name: automobile
+        required: true
+        schema:
+          $ref: '#/definitions/models.Inspection'
       produces:
       - application/json
       responses:
         "200":
           description: OK
+        "400":
+          description: Неверные данные запроса
         "500":
           description: Ошибка на сервере
       summary: Получить тех осмотр по id
@@ -151,11 +319,25 @@ paths:
       consumes:
       - application/json
       description: Обновляет  данные тех осмотра
+      parameters:
+      - description: ID техосмотра
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Обновленные данные техосмотра
+        in: body
+        name: inspection
+        required: true
+        schema:
+          $ref: '#/definitions/models.UpdateInspectionDTO'
       produces:
       - application/json
       responses:
         "200":
-          description: OK
+          description: Успешно
+        "400":
+          description: Неверные данные запроса
         "500":
           description: Ошибка на сервере
       summary: Обновить данные о тех осмотре
