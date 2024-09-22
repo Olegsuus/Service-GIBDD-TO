@@ -2,17 +2,19 @@ package app
 
 import (
 	"fmt"
+	"log/slog"
+
 	"github.com/Olegsuus/TZ-WEB-App/internal/config"
 	handler_automobile "github.com/Olegsuus/TZ-WEB-App/internal/handlers/automobile"
 	"github.com/Olegsuus/TZ-WEB-App/internal/handlers/handler"
 	handler_inspection "github.com/Olegsuus/TZ-WEB-App/internal/handlers/inspection"
+	customvalidator "github.com/Olegsuus/TZ-WEB-App/internal/handlers/validator"
 	service_automobile "github.com/Olegsuus/TZ-WEB-App/internal/service/automobile"
 	service_inspection "github.com/Olegsuus/TZ-WEB-App/internal/service/inspection"
 	"github.com/Olegsuus/TZ-WEB-App/internal/storage"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	echoSwagger "github.com/swaggo/echo-swagger"
-	"log/slog"
 )
 
 type App struct {
@@ -41,6 +43,9 @@ func (a *App) InitializeHandlers(store *storage.Storage) {
 
 func (a *App) Start(store *storage.Storage) error {
 	a.Echo = echo.New()
+
+	v := customvalidator.New()
+	a.Echo.Validator = v
 
 	a.Echo.Use(middleware.Logger())
 	a.Echo.Use(middleware.Recover())

@@ -8,19 +8,19 @@ import (
 func (s *AutomobileService) TranslatorToModels(automobileStorage *storage_models.Automobile) (*models.Automobile, error) {
 	return &models.Automobile{
 		ID:               automobileStorage.ID,
-		ReleaseDate:      automobileStorage.ReleaseDate,
+		ReleaseDate:      models.CustomDate{Time: automobileStorage.ReleaseDate},
 		Model:            automobileStorage.Model,
 		LicensePlate:     automobileStorage.LicensePlate,
-		RegistrationDate: automobileStorage.RegistrationDate,
+		RegistrationDate: models.CustomDate{Time: automobileStorage.RegistrationDate},
 	}, nil
 }
 
 func (s *AutomobileService) TranslatorToStorage(automobileModels *models.Automobile) (*storage_models.Automobile, error) {
 	return &storage_models.Automobile{
 		ID:               automobileModels.ID,
-		ReleaseDate:      automobileModels.ReleaseDate,
+		ReleaseDate:      automobileModels.ReleaseDate.Time,
 		Model:            automobileModels.Model,
 		LicensePlate:     automobileModels.LicensePlate,
-		RegistrationDate: automobileModels.RegistrationDate,
+		RegistrationDate: automobileModels.RegistrationDate.Time,
 	}, nil
 }

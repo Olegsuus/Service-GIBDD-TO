@@ -5,6 +5,7 @@ import (
 	"github.com/Olegsuus/TZ-WEB-App/internal/models"
 	"github.com/labstack/echo/v4"
 	"net/http"
+	"strconv"
 )
 
 // Update Обработчик для обновления данных тех осмотра
@@ -13,19 +14,41 @@ import (
 // @Tags тех осмотр
 // @Accept  json
 // @Produce  json
-// @Success 200  "OK"
+// @Param id path int true "ID техосмотра"
+// @Param inspection body models.UpdateInspectionDTO true "Обновленные данные техосмотра"
+// @Success 200  "Успешно"
+// @Failure 400  "Неверные данные запроса"
 // @Failure 500  "Ошибка на сервере"
 // @Router /inspection/:id [patch]
 func (h *InspectionHandler) Update(c echo.Context) error {
-	var inspection models.Inspection
+	strId := c.Param("id")
 
-	if err := c.Bind(&inspection); err != nil {
+	id, err := strconv.Atoi(strId)
+	if err != nil {
+		return handlers.ErrorsHandler(c, err, http.StatusBadRequest, "Неверный формат id")
+	}
+
+	var dto models.UpdateInspectionDTO
+
+	if err := c.Bind(&dto); err != nil {
 		return handlers.ErrorsHandler(c, err, http.StatusBadRequest, "Неверный формат данных на обновление")
 	}
 
-	if err := h.Service.Update(&inspection); err != nil {
+	inspection := models.Inspection{
+		ID:             id,
+		AutomobileID:   dto.AutomobileID,
+		CardNumber:     dto.CardNumber,
+		InspectionDate: dto.InspectionDate,
+		Notes:          dto.Notes,
+	}
+
+	if err = h.Service.Update(&inspection); err != nil {
 		return handlers.ErrorsHandler(c, err, http.StatusInternalServerError, "Ошибка при обновлении данных тех. осмотра")
 	}
 
-	return c.JSON(http.StatusOK, inspection)
+	response := models.UpdateRes{
+		Success: true,
+	}
+
+	return c.JSON(http.StatusOK, response)
 }

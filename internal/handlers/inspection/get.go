@@ -13,7 +13,10 @@ import (
 // @Tags тех осмотр
 // @Accept  json
 // @Produce  json
+// @Param id path int true "ID тех осмотра"
+// @Param automobile body models.Inspection true "Получение тех осмотра по id"
 // @Success 200  "OK"
+// @Failure 400 "Неверные данные запроса"
 // @Failure 500  "Ошибка на сервере"
 // @Router /inspection/:id [get]
 func (h *InspectionHandler) Get(c echo.Context) error {
