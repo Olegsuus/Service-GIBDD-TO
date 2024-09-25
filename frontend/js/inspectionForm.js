@@ -1,4 +1,4 @@
-// frontend/js/inspectionForm.js
+
 
 document.addEventListener('DOMContentLoaded', () => {
     initializeDatePickers();
@@ -13,24 +13,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-/**
- * Инициализация datepicker для поля даты осмотра
- */
+
 function initializeDatePickers() {
-    const datepickers = document.querySelectorAll('.datepicker');
-    datepickers.forEach(picker => {
-        new Datepicker(picker, {
-            format: 'dd.mm.yyyy',
-            autohide: true,
-            todayHighlight: true
-        });
+    flatpickr(".datepicker", {
+        dateFormat: "d.m.Y",
     });
 }
 
-/**
- * Обработка отправки формы
- * @param {Event} e - Событие
- */
+
 async function handleFormSubmit(e) {
     e.preventDefault();
     const form = e.target;
@@ -50,7 +40,6 @@ async function handleFormSubmit(e) {
 
     try {
         if (id) {
-            // Редактирование
             const response = await fetch(`/inspection/${id}`, {
                 method: 'PATCH',
                 headers: {
@@ -66,7 +55,6 @@ async function handleFormSubmit(e) {
 
             showAlert('Техосмотр успешно обновлен.', 'success');
         } else {
-            // Добавление
             const response = await fetch('/inspection', {
                 method: 'POST',
                 headers: {
@@ -82,7 +70,7 @@ async function handleFormSubmit(e) {
 
             showAlert('Техосмотр успешно добавлен.', 'success');
             form.reset();
-            initializeDatePickers(); // Сбросить datepickers после добавления
+            initializeDatePickers();
         }
 
         setTimeout(() => {
@@ -93,10 +81,7 @@ async function handleFormSubmit(e) {
     }
 }
 
-/**
- * Функция для получения данных техосмотра и заполнения формы
- * @param {number} id - ID техосмотра
- */
+
 async function fetchInspection(id) {
     try {
         const response = await fetch(`/inspection/${id}`, {
@@ -122,11 +107,6 @@ async function fetchInspection(id) {
     }
 }
 
-/**
- * Функция для отображения сообщений
- * @param {string} message - Текст сообщения
- * @param {string} type - Тип сообщения (success, danger и т.д.)
- */
 function showAlert(message, type) {
     const alertPlaceholder = document.getElementById('alertPlaceholder');
     const wrapper = document.createElement('div');
@@ -138,7 +118,7 @@ function showAlert(message, type) {
     `;
     alertPlaceholder.append(wrapper);
 
-    // Автоматическое закрытие алерта через 5 секунд
+
     setTimeout(() => {
         const alert = bootstrap.Alert.getInstance(wrapper.querySelector('.alert'));
         if (alert) {
