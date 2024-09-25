@@ -11,24 +11,33 @@ type ServerConfig struct {
 }
 
 type DataBaseConfig struct {
-	Driver   string `yaml:"driver"`
-	Host     string `yaml:"host"`
-	Port     int    `yaml:"port"`
-	User     string `yaml:"user"`
-	Password string `yaml:"password"`
-	DBName   string `yaml:"dbname"`
+	Driver   string `mapstructure:"driver"`
+	Host     string `mapstructure:"host"`
+	Port     int    `mapstructure:"port"`
+	User     string `mapstructure:"user"`
+	Password string `mapstructure:"password"`
+	DBName   string `mapstructure:"dbname"`
 }
 
 type Config struct {
 	Server   ServerConfig
 	DataBase DataBaseConfig
-	PageSize int `yaml:"PageSize"`
 }
 
 func GetConfig() *Config {
 	viper.SetConfigName("config")
 	viper.SetConfigType("yaml")
 	viper.AddConfigPath(".")
+
+	viper.AutomaticEnv()
+
+	viper.BindEnv("Server.Port", "SERVER_PORT")
+	viper.BindEnv("DataBase.Driver", "DB_DRIVER")
+	viper.BindEnv("DataBase.Host", "DB_HOST")
+	viper.BindEnv("DataBase.Port", "DB_PORT")
+	viper.BindEnv("DataBase.User", "DB_USER")
+	viper.BindEnv("DataBase.Password", "DB_PASSWORD")
+	viper.BindEnv("DataBase.DBName", "DB_NAME")
 
 	err := viper.ReadInConfig()
 	if err != nil {

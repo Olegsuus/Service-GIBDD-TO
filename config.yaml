@@ -4,11 +4,8 @@ Server:
 
 DataBase:
   driver: "postgres"
-  host: "localhost"
+  host: "database"
   port: 5432
   user: "postgres"
   password: "1234"
   dbname: "WEB-App-DB"
-
-
-PageSize: 3
