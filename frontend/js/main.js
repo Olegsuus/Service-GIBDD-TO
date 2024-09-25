@@ -1,10 +1,5 @@
-// frontend/js/main.js
 
-/**
- * Функция для отображения Bootstrap алерта
- * @param {string} message - Сообщение для отображения
- * @param {string} type - Тип алерта ('success', 'danger', 'warning', 'info')
- */
+
 function showAlert(message, type = 'danger') {
     const alertPlaceholder = document.getElementById('alertPlaceholder');
     const wrapper = document.createElement('div');
@@ -16,7 +11,7 @@ function showAlert(message, type = 'danger') {
     `;
     alertPlaceholder.append(wrapper);
 
-    // Автоматическое закрытие алерта через 5 секунд
+
     setTimeout(() => {
         const alert = bootstrap.Alert.getInstance(wrapper.querySelector('.alert'));
         if (alert) {

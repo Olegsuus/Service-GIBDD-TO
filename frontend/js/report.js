@@ -1,12 +1,10 @@
-// frontend/js/report.js
+
 
 document.addEventListener('DOMContentLoaded', () => {
     fetchReport();
 });
 
-/**
- * Функция для получения отчета и отображения его на странице
- */
+
 async function fetchReport() {
     try {
         const response = await fetch('/report', {
@@ -27,21 +25,14 @@ async function fetchReport() {
     }
 }
 
-/**
- * Функция для заполнения отчета данными
- * @param {Object} report - Объект отчета
- */
+
 function populateReport(report) {
     document.getElementById('totalCars').textContent = report.total_cars;
     document.getElementById('carsOlder3Years').textContent = report.cars_older_3_years;
     document.getElementById('carsNewer3Years').textContent = report.cars_newer_3_years;
 }
 
-/**
- * Функция для отображения сообщений
- * @param {string} message - Текст сообщения
- * @param {string} type - Тип сообщения (success, danger и т.д.)
- */
+
 function showAlert(message, type) {
     const alertPlaceholder = document.getElementById('alertPlaceholder');
     const wrapper = document.createElement('div');
@@ -53,7 +44,6 @@ function showAlert(message, type) {
     `;
     alertPlaceholder.append(wrapper);
 
-    // Автоматическое закрытие алерта через 5 секунд
     setTimeout(() => {
         const alert = bootstrap.Alert.getInstance(wrapper.querySelector('.alert'));
         if (alert) {

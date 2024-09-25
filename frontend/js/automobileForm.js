@@ -1,4 +1,3 @@
-// frontend/js/automobileForm.js
 
 document.addEventListener('DOMContentLoaded', () => {
     initializeDatePickers();
@@ -13,24 +12,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-/**
- * Инициализация datepicker для полей даты
- */
+
 function initializeDatePickers() {
-    const datepickers = document.querySelectorAll('.datepicker');
-    datepickers.forEach(picker => {
-        new Datepicker(picker, {
-            format: 'dd.mm.yyyy',
-            autohide: true,
-            todayHighlight: true
-        });
+    flatpickr(".datepicker", {
+        dateFormat: "d.m.Y",
     });
 }
 
-/**
- * Обработка отправки формы
- * @param {Event} e - Событие
- */
+
 async function handleFormSubmit(e) {
     e.preventDefault();
     const form = e.target;
@@ -50,7 +39,6 @@ async function handleFormSubmit(e) {
 
     try {
         if (id) {
-            // Редактирование
             const response = await fetch(`/car/${id}`, {
                 method: 'PATCH',
                 headers: {
@@ -66,7 +54,6 @@ async function handleFormSubmit(e) {
 
             showAlert('Автомобиль успешно обновлен.', 'success');
         } else {
-            // Добавление
             const response = await fetch('/car', {
                 method: 'POST',
                 headers: {
@@ -93,10 +80,6 @@ async function handleFormSubmit(e) {
     }
 }
 
-/**
- * Функция для получения данных автомобиля и заполнения формы
- * @param {number} id - ID автомобиля
- */
 async function fetchAutomobile(id) {
     try {
         const response = await fetch(`/car/${id}`, {
@@ -122,11 +105,7 @@ async function fetchAutomobile(id) {
     }
 }
 
-/**
- * Функция для отображения сообщений
- * @param {string} message - Текст сообщения
- * @param {string} type - Тип сообщения (success, danger и т.д.)
- */
+
 function showAlert(message, type) {
     const alertPlaceholder = document.getElementById('alertPlaceholder');
     const wrapper = document.createElement('div');
@@ -138,7 +117,6 @@ function showAlert(message, type) {
     `;
     alertPlaceholder.append(wrapper);
 
-    // Автоматическое закрытие алерта через 5 секунд
     setTimeout(() => {
         const alert = bootstrap.Alert.getInstance(wrapper.querySelector('.alert'));
         if (alert) {

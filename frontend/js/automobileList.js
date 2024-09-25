@@ -1,12 +1,10 @@
-// frontend/js/automobileList.js
+
 
 document.addEventListener('DOMContentLoaded', () => {
     fetchAutomobiles();
 });
 
-/**
- * Функция для получения списка автомобилей и отображения их в таблице
- */
+
 async function fetchAutomobiles() {
     try {
         const response = await fetch('/cars', {
@@ -27,10 +25,7 @@ async function fetchAutomobiles() {
     }
 }
 
-/**
- * Функция для заполнения таблицы автомобилями
- * @param {Array} automobiles - Массив объектов автомобилей
- */
+
 function populateTable(automobiles) {
     const tableBody = document.querySelector('#automobileTable tbody');
     tableBody.innerHTML = ''; // Очистить таблицу перед заполнением
@@ -56,9 +51,7 @@ function populateTable(automobiles) {
     addEventListeners();
 }
 
-/**
- * Функция для добавления обработчиков событий кнопкам "Редактировать" и "Удалить"
- */
+
 function addEventListeners() {
     const editButtons = document.querySelectorAll('.edit-btn');
     const deleteButtons = document.querySelectorAll('.delete-btn');
@@ -78,10 +71,7 @@ function addEventListeners() {
     });
 }
 
-/**
- * Функция для обработки удаления автомобиля
- * @param {number} id - ID автомобиля
- */
+
 async function handleDelete(id) {
     if (confirm('Вы уверены, что хотите удалить этот автомобиль?')) {
         try {
@@ -98,18 +88,14 @@ async function handleDelete(id) {
             }
 
             showAlert('Автомобиль успешно удален.', 'success');
-            fetchAutomobiles(); // Обновить список автомобилей
+            fetchAutomobiles();
         } catch (error) {
             showAlert(error.message, 'danger');
         }
     }
 }
 
-/**
- * Функция для отображения сообщений
- * @param {string} message - Текст сообщения
- * @param {string} type - Тип сообщения (success, danger и т.д.)
- */
+
 function showAlert(message, type) {
     const alertPlaceholder = document.getElementById('alertPlaceholder');
     const wrapper = document.createElement('div');
@@ -121,7 +107,6 @@ function showAlert(message, type) {
     `;
     alertPlaceholder.append(wrapper);
 
-    // Автоматическое закрытие алерта через 5 секунд
     setTimeout(() => {
         const alert = bootstrap.Alert.getInstance(wrapper.querySelector('.alert'));
         if (alert) {

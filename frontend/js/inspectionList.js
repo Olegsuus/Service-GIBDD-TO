@@ -1,12 +1,10 @@
-// frontend/js/inspectionList.js
+
 
 document.addEventListener('DOMContentLoaded', () => {
     fetchInspections();
 });
 
-/**
- * Функция для получения списка техосмотров и отображения их в таблице
- */
+
 async function fetchInspections() {
     try {
         const response = await fetch('/inspections', {
@@ -27,13 +25,10 @@ async function fetchInspections() {
     }
 }
 
-/**
- * Функция для заполнения таблицы техосмотрами
- * @param {Array} inspections - Массив объектов техосмотров
- */
+
 function populateTable(inspections) {
     const tableBody = document.querySelector('#inspectionTable tbody');
-    tableBody.innerHTML = ''; // Очистить таблицу перед заполнением
+    tableBody.innerHTML = '';
 
     inspections.forEach(insp => {
         const row = document.createElement('tr');
@@ -53,11 +48,10 @@ function populateTable(inspections) {
         tableBody.appendChild(row);
     });
 
-    addEventListeners(); // Вызываем функцию для добавления событий после создания таблицы
+    addEventListeners();
 }
 
 function addEventListeners() {
-    // Привязываем событие к кнопке "Редактировать"
     document.querySelectorAll('.edit-btn').forEach(button => {
         button.addEventListener('click', function () {
             const inspectionId = this.getAttribute('data-id');
@@ -65,7 +59,6 @@ function addEventListeners() {
         });
     });
 
-    // Привязываем событие к кнопке "Удалить"
     document.querySelectorAll('.delete-btn').forEach(button => {
         button.addEventListener('click', function () {
             const inspectionId = this.getAttribute('data-id');
@@ -74,10 +67,7 @@ function addEventListeners() {
     });
 }
 
-/**
- * Функция для обработки удаления техосмотра
- * @param {number} id - ID техосмотра
- */
+
 async function handleDelete(id) {
     if (confirm('Вы уверены, что хотите удалить этот техосмотр?')) {
         try {
@@ -101,11 +91,7 @@ async function handleDelete(id) {
     }
 }
 
-/**
- * Функция для отображения сообщений
- * @param {string} message - Текст сообщения
- * @param {string} type - Тип сообщения (success, danger и т.д.)
- */
+
 function showAlert(message, type) {
     const alertPlaceholder = document.getElementById('alertPlaceholder');
     const wrapper = document.createElement('div');
@@ -117,7 +103,6 @@ function showAlert(message, type) {
     `;
     alertPlaceholder.append(wrapper);
 
-    // Автоматическое закрытие алерта через 5 секунд
     setTimeout(() => {
         const alert = bootstrap.Alert.getInstance(wrapper.querySelector('.alert'));
         if (alert) {
