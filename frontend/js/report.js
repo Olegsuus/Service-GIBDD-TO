@@ -36,3 +36,28 @@ function populateReport(report) {
     document.getElementById('carsOlder3Years').textContent = report.cars_older_3_years;
     document.getElementById('carsNewer3Years').textContent = report.cars_newer_3_years;
 }
+
+/**
+ * Функция для отображения сообщений
+ * @param {string} message - Текст сообщения
+ * @param {string} type - Тип сообщения (success, danger и т.д.)
+ */
+function showAlert(message, type) {
+    const alertPlaceholder = document.getElementById('alertPlaceholder');
+    const wrapper = document.createElement('div');
+    wrapper.innerHTML = `
+    <div class="alert alert-${type} alert-dismissible fade show" role="alert">
+        ${message}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    `;
+    alertPlaceholder.append(wrapper);
+
+    // Автоматическое закрытие алерта через 5 секунд
+    setTimeout(() => {
+        const alert = bootstrap.Alert.getInstance(wrapper.querySelector('.alert'));
+        if (alert) {
+            alert.close();
+        }
+    }, 5000);
+}

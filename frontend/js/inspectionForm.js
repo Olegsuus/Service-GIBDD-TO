@@ -19,9 +19,9 @@ document.addEventListener('DOMContentLoaded', () => {
 function initializeDatePickers() {
     const datepickers = document.querySelectorAll('.datepicker');
     datepickers.forEach(picker => {
-        new bootstrap.Datepicker(picker, {
+        new Datepicker(picker, {
             format: 'dd.mm.yyyy',
-            autoclose: true,
+            autohide: true,
             todayHighlight: true
         });
     });
@@ -38,7 +38,7 @@ async function handleFormSubmit(e) {
     const id = form.id.value;
     const automobile_id = parseInt(form.automobile_id.value);
     const card_number = form.card_number.value;
-    const inspection_date = convertDateToISO(form.inspection_date.value);
+    const inspection_date = form.inspection_date.value;
     const notes = form.notes.value;
 
     const payload = {
@@ -86,7 +86,7 @@ async function handleFormSubmit(e) {
         }
 
         setTimeout(() => {
-            window.location.href = id ? 'inspections.html' : 'inspections.html';
+            window.location.href = 'inspections.html';
         }, 1500);
     } catch (error) {
         showAlert(error.message, 'danger');
@@ -115,7 +115,7 @@ async function fetchInspection(id) {
         document.getElementById('id').value = insp.id;
         document.getElementById('automobile_id').value = insp.automobile_id;
         document.getElementById('card_number').value = insp.card_number;
-        document.getElementById('inspection_date').value = formatDateForInput(insp.inspection_date);
+        document.getElementById('inspection_date').value = insp.inspection_date;
         document.getElementById('notes').value = insp.notes;
     } catch (error) {
         showAlert(error.message, 'danger');
@@ -123,26 +123,26 @@ async function fetchInspection(id) {
 }
 
 /**
- * Конвертация даты из формата DD.MM.YYYY в YYYY-MM-DD
- * @param {string} dateStr - Дата в формате DD.MM.YYYY
- * @returns {string} - Дата в формате YYYY-MM-DD
+ * Функция для отображения сообщений
+ * @param {string} message - Текст сообщения
+ * @param {string} type - Тип сообщения (success, danger и т.д.)
  */
-function convertDateToISO(dateStr) {
-    const parts = dateStr.split('.');
-    if (parts.length !== 3) return '';
-    const [day, month, year] = parts;
-    return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
-}
+function showAlert(message, type) {
+    const alertPlaceholder = document.getElementById('alertPlaceholder');
+    const wrapper = document.createElement('div');
+    wrapper.innerHTML = `
+    <div class="alert alert-${type} alert-dismissible fade show" role="alert">
+        ${message}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    `;
+    alertPlaceholder.append(wrapper);
 
-/**
- * Конвертация даты из формата YYYY-MM-DD в DD.MM.YYYY для отображения в форме
- * @param {string} dateStr - Дата в формате YYYY-MM-DD
- * @returns {string} - Дата в формате DD.MM.YYYY
- */
-function formatDateForInput(dateStr) {
-    const date = new Date(dateStr);
-    const day = String(date.getDate()).padStart(2, '0');
-    const month = String(date.getMonth() + 1).padStart(2, '0'); // Месяцы начинаются с 0
-    const year = date.getFullYear();
-    return `${day}.${month}.${year}`;
+    // Автоматическое закрытие алерта через 5 секунд
+    setTimeout(() => {
+        const alert = bootstrap.Alert.getInstance(wrapper.querySelector('.alert'));
+        if (alert) {
+            alert.close();
+        }
+    }, 5000);
 }
