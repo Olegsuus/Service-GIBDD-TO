@@ -3,8 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Список Автомобилей</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <!-- Подключение Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <!-- Подключение Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Подключение пользовательских стилей -->
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -15,7 +19,8 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
+            <!-- Левая часть навигационной панели -->
+            <ul class="navbar-nav me-auto">
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="index.html">Автомобили</a>
                 </li>
@@ -26,34 +31,59 @@
                     <a class="nav-link" href="report.html">Отчет</a>
                 </li>
             </ul>
+            <!-- Правая часть навигационной панели -->
+            <ul class="navbar-nav d-flex" id="authButtons">
+                <li class="nav-item">
+                    <a class="nav-link" href="login.html">Войти</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="register.html">Зарегистрироваться</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav d-none" id="userInfo">
+                <li class="nav-item">
+                    <span class="navbar-text me-3" id="userEmail">Пользователь</span>
+                </li>
+                <li class="nav-item">
+                    <button class="btn btn-outline-light btn-sm" id="logoutButton">Выйти</button>
+                </li>
+            </ul>
         </div>
     </div>
 </nav>
 
 <div class="container mt-4">
-    <h1 class="mb-4">Список Автомобилей</h1>
-    <div class="mb-3">
+    <h1 class="mb-4 text-center">Список Автомобилей</h1>
+    <!-- Место для отображения уведомлений -->
+    <div id="alertPlaceholder"></div>
+    <!-- Кнопка для добавления нового автомобиля -->
+    <div class="mb-3 text-end">
         <a href="add_car.html" class="btn btn-primary">Добавить Автомобиль</a>
     </div>
-    <table class="table table-striped" id="automobileTable">
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>Дата Выпуска</th>
-            <th>Модель</th>
-            <th>Госномер</th>
-            <th>Дата Регистрации</th>
-            <th>Действия</th>
-        </tr>
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
-    <div id="alertPlaceholder"></div>
+    <!-- Таблица с автомобилями -->
+    <div class="table-responsive">
+        <table class="table table-striped table-hover" id="automobileTable">
+            <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Дата Выпуска</th>
+                <th>Модель</th>
+                <th>Госномер</th>
+                <th>Дата Регистрации</th>
+                <th>Действия</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- Автомобили будут загружены сюда через JavaScript -->
+            </tbody>
+        </table>
+    </div>
 </div>
 
+<!-- Подключение Bootstrap JS Bundle -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="js/automobileList.js"></script>
+<!-- Подключение основных скриптов -->
 <script src="js/main.js"></script>
+<script src="js/automobileList.js"></script>
 </body>
 </html>

@@ -3,15 +3,18 @@
 /* Общие стили */
 body {
     background-color: #f8f9fa;
-    font-family: Arial, sans-serif;
+    font-family: 'Roboto', sans-serif;
 }
 
 h1 {
     color: #343a40;
+    text-align: center;
 }
 
 .table {
     background-color: #ffffff;
+    border-radius: 8px;
+    overflow: hidden;
 }
 
 .btn-primary {
@@ -19,9 +22,19 @@ h1 {
     border-color: #0d6efd;
 }
 
+.btn-primary:hover {
+    background-color: #0b5ed7;
+    border-color: #0a58ca;
+}
+
 .btn-secondary {
     background-color: #6c757d;
     border-color: #6c757d;
+}
+
+.btn-secondary:hover {
+    background-color: #5c636a;
+    border-color: #565e64;
 }
 
 .btn-warning {
@@ -29,20 +42,54 @@ h1 {
     border-color: #ffc107;
 }
 
+.btn-warning:hover {
+    background-color: #e0a800;
+    border-color: #d39e00;
+}
+
 .btn-danger {
     background-color: #dc3545;
     border-color: #dc3545;
 }
 
+.btn-danger:hover {
+    background-color: #bb2d3b;
+    border-color: #b02a37;
+}
+
 .card {
     background-color: #ffffff;
+    border: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .form-control:focus {
     border-color: #0d6efd;
-    box-shadow: none;
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
 }
 
 #alertPlaceholder {
     margin-bottom: 20px;
+}
+
+/* Дополнительные стили для форм */
+form {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.navbar-nav .nav-link {
+    color: #ffffff !important;
+}
+
+.navbar-nav .nav-link.active {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+/* Адаптивные стили */
+@media (max-width: 576px) {
+    .navbar-nav {
+        text-align: center;
+    }
 }

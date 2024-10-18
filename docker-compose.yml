@@ -17,6 +17,25 @@ services:
       - "8001:8001"
     depends_on:
       - database
+      - auth
+
+  auth:
+    image: auth-service-image
+    build:
+      context: ../Auth
+      dockerfile: Dockerfile
+    environment:
+      - SERVER_PORT=8765
+      - MONGO_URI=mongodb://mongo:27017/users
+      - JWT_SECRET=XRf2CIvuB6JTH0+9Pa7DwJC7kFSLKX/kVWvlEd0VLPx4HQPOnc+OC5g0WOq8M1oqIEJUTS+0EDqUpLiaONx5Hg
+      - JWT_EXPIRY=24h
+    ports:
+      - "8765:8765"
+    depends_on:
+      - mongo
+    networks:
+      - app-network
+
 
   database:
     image: postgres:16-alpine
@@ -27,5 +46,22 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
+
+  mongo:
+    image: mongo:6.0
+    environment:
+      MONGO_INITDB_DATABASE: users
+    volumes:
+      - mongo_data:/data/db
+    ports:
+      - "27018:27017"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
 volumes:
   postgres_data:
+  mongo_data:
